@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* --background: #ffffff;
+  --foreground: #171717; */
+  --primary: #0070f3;
+  --secondary: #1c1c1e;
+  --accent: #eaeaea;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-primary-transluscent: rgba(0, 112, 243, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.clip {
+  max-width: 1400px;
+  width: 100%;
+  margin: auto;
+}
+body {
+  /* background: var(--background);
+  color: var(--foreground); */
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: var(--font-poppins);
+}
+
+.search {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 2rem;
+  transition: 0.5s;
+  &:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+    outline: 2px solid var(--color-primary-transluscent);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.search-input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+button {
+  padding: 10px 20px;
+  /* background-color: var(--color-primary); */
+  /* color: #fff; */
+  border: none;
+  outline: none;
+  /* border-radius: 4px; */
+  cursor: pointer;
+}
+.hero {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #1c1c1ebb;
+  background-blend-mode: overlay;
+}
+.title {
+  font-size: clamp(1.5rem, 7vw, 4rem);
+}
+.heading {
+  font-size: clamp(1.5rem, 5vw, 2rem);
 }
