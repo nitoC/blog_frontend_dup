@@ -5,7 +5,7 @@ import { HiArrowRight } from "react-icons/hi";
 import { IPost } from "@/interfaces";
 
 const PostCard = ({ post }: { post: IPost }) => {
-  const category = post.categories?.[0]?.replace("Tech ", "");
+  const category = post.categories?.[0]?.title?.replace("Tech ", "");
 
   return (
     <Link
@@ -13,7 +13,6 @@ const PostCard = ({ post }: { post: IPost }) => {
       className="group block h-full w-full"
     >
       <article className="flex h-full w-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl">
-
         {/* Image */}
         <div className="relative aspect-[16/9] overflow-hidden">
           <Image
@@ -35,15 +34,12 @@ const PostCard = ({ post }: { post: IPost }) => {
 
         {/* Content */}
         <div className="flex flex-1 flex-col p-6">
-
           <h2 className="line-clamp-2 text-xl font-bold leading-tight text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
             {post.title}
           </h2>
 
           <div className="mt-auto pt-6">
-
             <div className="flex items-center justify-between border-t border-gray-100 pt-4 text-sm text-gray-500">
-
               <div className="flex items-center gap-2">
                 <FaRegUser className="text-gray-400" />
                 <span>{post.authorName}</span>
@@ -60,15 +56,12 @@ const PostCard = ({ post }: { post: IPost }) => {
                   }).format(new Date(post.publishedAt))}
                 </time>
               </div>
-
             </div>
 
             <div className="mt-5 flex items-center font-semibold text-blue-600">
               Read Article
-
               <HiArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
             </div>
-
           </div>
         </div>
       </article>

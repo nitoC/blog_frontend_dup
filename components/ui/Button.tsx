@@ -11,12 +11,14 @@ type ButtonProps = {
   handler?: () => void;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
+  type?: string;
 };
 
 const Button = ({
   variant = "primary",
   text,
   size = "medium",
+  type,
   href,
   styles,
   handler,
@@ -55,7 +57,7 @@ const Button = ({
     styles,
   );
 
-  if (variant === "link") {
+  if (variant === "link" || type === "link") {
     return (
       <Link href={href ?? "#"} className={className}>
         {leftIcon}

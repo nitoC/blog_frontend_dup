@@ -54,13 +54,9 @@ export default async function Posts({
       {/* Hero */}
       <section className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-6 py-14">
-
-          <p className="text-sm text-gray-500 mb-3">
-            Home / Posts
-          </p>
+          <p className="text-sm text-gray-500 mb-3">Home / Posts</p>
 
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-
             <div>
               <h1 className="text-4xl font-bold text-gray-900">
                 {category || "Latest Articles"}
@@ -74,7 +70,6 @@ export default async function Posts({
             </div>
 
             <div className="flex gap-3 items-center">
-
               {category && (
                 <span className="rounded-full bg-blue-100 text-blue-700 px-4 py-2 text-sm font-semibold">
                   {category}
@@ -84,7 +79,6 @@ export default async function Posts({
               <span className="rounded-full bg-gray-100 px-4 py-2 text-sm text-gray-600">
                 {visiblePosts.length} Articles
               </span>
-
             </div>
           </div>
         </div>
@@ -93,24 +87,17 @@ export default async function Posts({
       {/* Posts */}
 
       <section className="max-w-7xl mx-auto px-6 py-12">
-
         {visiblePosts.length ? (
           <>
             <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
-
               {visiblePosts.map((post) => (
-                <PostCard
-                  key={post._id}
-                  post={post}
-                />
+                <PostCard key={post._id} post={post} />
               ))}
-
             </div>
 
             {/* Pagination */}
 
             <div className="flex items-center justify-center gap-5 mt-16">
-
               {pageNumber > 1 && (
                 <Button
                   type="link"
@@ -118,7 +105,7 @@ export default async function Posts({
                     category ? `&category=${category}` : ""
                   }`}
                   text="Previous"
-                  icon={<HiChevronLeft />}
+                  leftIcon={<HiChevronLeft />}
                 />
               )}
 
@@ -133,22 +120,16 @@ export default async function Posts({
                     category ? `&category=${category}` : ""
                   }`}
                   text="Next"
-                  iconRight={<HiChevronRight />}
+                  rightIcon={<HiChevronRight />}
                 />
               )}
             </div>
           </>
         ) : (
           <div className="bg-white rounded-2xl border py-24 flex flex-col items-center">
+            <MdOutlineImageNotSupported size={70} className="text-gray-300" />
 
-            <MdOutlineImageNotSupported
-              size={70}
-              className="text-gray-300"
-            />
-
-            <h3 className="text-2xl font-semibold mt-6">
-              No articles found
-            </h3>
+            <h3 className="text-2xl font-semibold mt-6">No articles found</h3>
 
             <p className="text-gray-500 mt-2">
               We couldn't find any articles in this category.
