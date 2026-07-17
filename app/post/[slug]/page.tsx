@@ -39,11 +39,11 @@ export default async function PostPage({
 
         <main className="flex min-h-[70vh] items-center justify-center px-6">
           <div className="text-center">
-            <h1 className="text-5xl font-bold text-slate-900">
+            <h1 className="text-3xl font-bold text-slate-900 md:text-5xl">
               Article not found
             </h1>
 
-            <p className="mt-4 text-lg text-slate-500">
+            <p className="mt-4 text-base text-slate-500 md:text-lg">
               The article you're looking for doesn't exist.
             </p>
           </div>
@@ -57,27 +57,25 @@ export default async function PostPage({
       <Header />
 
       <main className="bg-slate-50">
-
         {/* ================= HERO ================= */}
 
         <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-900 text-white">
-
           {/* Decorative blobs */}
 
           <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-blue-600/20 blur-3xl" />
 
           <div className="absolute right-0 top-20 h-[28rem] w-[28rem] rounded-full bg-cyan-500/10 blur-3xl" />
 
-          <div className="mx-auto max-w-6xl px-6 pt-20 pb-36">
-
+          {/* Fixed padding: Less bottom padding on mobile so negative margin doesn't overlap metadata */}
+          <div className="mx-auto max-w-6xl px-4 pt-12 pb-24 sm:px-6 md:pt-20 md:pb-36">
             {/* Categories */}
 
             {post.categories?.length > 0 && (
-              <div className="mb-8 flex flex-wrap gap-3">
+              <div className="mb-6 flex flex-wrap gap-2 md:mb-8 md:gap-3">
                 {post.categories.map((category: string) => (
                   <span
                     key={category}
-                    className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur-md"
+                    className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold backdrop-blur-md md:px-4 md:py-2 md:text-sm"
                   >
                     {category.replace("Tech ", "")}
                   </span>
@@ -85,43 +83,37 @@ export default async function PostPage({
               </div>
             )}
 
-            <h1 className="max-w-4xl text-5xl font-black leading-tight md:text-6xl">
+            {/* Responsive title font size */}
+            <h1 className="max-w-4xl text-3xl font-black leading-tight sm:text-4xl md:text-6xl">
               {post.title}
             </h1>
 
-            <div className="mt-10 flex flex-wrap items-center gap-8">
-
-              <div className="flex items-center gap-4">
-
+            {/* Meta tags stack on mobile, go row-wide on desktop */}
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6 md:mt-10 md:gap-8">
+              <div className="flex items-center gap-3 md:gap-4">
                 {post.authorImage && (
                   <Image
-                    src={urlFor(post.authorImage)
-                      .width(60)
-                      .height(60)
-                      .url()}
+                    src={urlFor(post.authorImage).width(60).height(60).url()}
                     alt={post.name}
-                    width={60}
-                    height={60}
-                    className="rounded-full border-2 border-white/30"
+                    width={48}
+                    height={48}
+                    className="rounded-full border-2 border-white/30 md:h-[60px] md:w-[60px]"
                   />
                 )}
 
                 <div>
-
-                  <p className="font-semibold">
+                  <p className="text-sm font-semibold md:text-base">
                     {post.name}
                   </p>
 
-                  <div className="mt-1 flex items-center gap-2 text-sm text-blue-100">
+                  <div className="mt-0.5 flex items-center gap-2 text-xs text-blue-100 md:mt-1 md:text-sm">
                     <FaRegUser />
                     Author
                   </div>
-
                 </div>
-
               </div>
 
-              <div className="flex items-center gap-2 text-blue-100">
+              <div className="flex items-center gap-2 text-xs text-blue-100 md:text-sm">
                 <FaRegCalendarAlt />
 
                 <time dateTime={post.publishedAt}>
@@ -131,22 +123,18 @@ export default async function PostPage({
                     year: "numeric",
                   }).format(new Date(post.publishedAt))}
                 </time>
-
               </div>
-
             </div>
-
           </div>
-
         </section>
 
         {/* ================= FEATURE IMAGE ================= */}
 
         {post.mainImage && (
-          <section className="relative mx-auto -mt-24 max-w-6xl px-6">
-
-            <div className="relative aspect-[16/8] overflow-hidden rounded-[32px] border border-white bg-white shadow-2xl">
-
+          /* Adjusted margins and padding for mobile */
+          <section className="relative mx-auto -mt-12 max-w-6xl px-4 sm:px-6 md:-mt-24">
+            {/* Changed aspect-ratio to 16/10 on mobile so it has visual height, 16/8 on desktop */}
+            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white bg-white shadow-2xl md:aspect-[16/8] md:rounded-[32px]">
               <Image
                 src={urlFor(post.mainImage).width(1600).url()}
                 alt={post.title}
@@ -154,36 +142,42 @@ export default async function PostPage({
                 priority
                 className="object-cover"
               />
-
             </div>
-
           </section>
         )}
 
         {/* ================= ARTICLE ================= */}
 
-        <section className="mx-auto max-w-4xl px-6 py-24">
-
+        {/* Reduced vertical padding on mobile */}
+        <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 md:py-24">
           <article
             className="
             prose
-            prose-lg
+            prose-base
+            md:prose-lg
             max-w-none
 
             prose-headings:font-bold
             prose-headings:tracking-tight
             prose-headings:text-slate-900
 
+            prose-h2:text-xl
+            md:prose-h2:text-2xl
             prose-h2:text-blue-700
             prose-h2:border-l-4
             prose-h2:border-blue-600
-            prose-h2:pl-5
-            prose-h2:mt-16
+            prose-h2:pl-4
+            md:prose-h2:pl-5
+            prose-h2:mt-10
+            md:prose-h2:mt-16
 
+            prose-h3:text-lg
+            md:prose-h3:text-xl
             prose-h3:text-indigo-700
 
             prose-p:text-slate-700
-            prose-p:leading-9
+            prose-p:leading-7
+            md:prose-p:leading-9
 
             prose-strong:text-slate-900
 
@@ -197,34 +191,38 @@ export default async function PostPage({
 
             prose-li:marker:text-blue-600
 
-            prose-img:rounded-3xl
-            prose-img:shadow-2xl
+            prose-img:rounded-xl
+            md:prose-img:rounded-3xl
+            prose-img:shadow-xl
 
             prose-blockquote:border-l-4
             prose-blockquote:border-blue-600
             prose-blockquote:bg-blue-50
             prose-blockquote:rounded-r-xl
-            prose-blockquote:px-8
-            prose-blockquote:py-5
+            prose-blockquote:px-4
+            md:prose-blockquote:px-8
+            prose-blockquote:py-4
+            md:prose-blockquote:py-5
             prose-blockquote:not-italic
 
             prose-code:bg-pink-50
-            prose-code:px-2
-            prose-code:py-1
+            prose-code:px-1.5
+            prose-code:py-0.5
             prose-code:rounded
             prose-code:text-pink-600
+            prose-code:break-words
 
             prose-pre:bg-slate-900
             prose-pre:text-gray-100
-            prose-pre:rounded-2xl
+            prose-pre:rounded-xl
+            md:prose-pre:rounded-2xl
             prose-pre:shadow-2xl
+            prose-pre:overflow-x-auto
           "
           >
             <PortableTextRenderer value={post.body} />
           </article>
-
         </section>
-
       </main>
     </>
   );

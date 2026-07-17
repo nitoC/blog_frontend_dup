@@ -1,5 +1,3 @@
-import { IPost } from "@/interfaces";
-
 import { client } from "@/lib/sanity";
 import { defineQuery } from "next-sanity";
 import Link from "next/link";
@@ -20,7 +18,7 @@ const Hero = async ({ slug }: { slug: string }) => {
 
   console.log("PostHero:", post);
 
-  if (!post) return null; // Safety check in case slug matches nothing
+  if (!post) return null;
 
   const { title, mainImageUrl, authorName, publishedAt, description } = post[0];
 
