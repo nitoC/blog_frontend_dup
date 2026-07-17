@@ -4,19 +4,35 @@ import { PortableText } from "@portabletext/react";
 import type { ComponentProps, ReactNode } from "react";
 
 type PortableTextValue = ComponentProps<typeof PortableText>["value"];
-type ImageValue = { asset: { url: string } };
+
+// Sanity images in rich text store an asset ref string, not a direct url string
+type ImageValue = {
+  _type: "image";
+  _key: string;
+  asset?: {
+    _ref?: string;
+    _type?: string;
+  };
+  alt?: string;
+};
+
 type BlockProps = { children?: ReactNode };
 
 const components: ComponentProps<typeof PortableText>["components"] = {
   types: {
     image: ({ value }: { value: ImageValue }) => {
+      // Guard condition: if no asset reference exists, don't crash, return nothing
+      if (!value?.asset?._ref) {
+        return null;
+      }
+
       return (
         <img
           src={urlFor(value).width(800).url()}
           className="m-4 rounded-lg w-full"
           width={600}
           height={400}
-          alt=""
+          alt={value.alt || ""}
         />
       );
     },

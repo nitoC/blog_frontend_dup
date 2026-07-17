@@ -13,10 +13,26 @@ const POST_QUERY = defineQuery(`*[_type == "post" && slug.current == $slug]{
   "mainImageUrl": mainImage.asset->url,
   description
 }`);
+
 const Hero = async ({ slug }: { slug: string }) => {
-  const [post] = await client.fetch(POST_QUERY, { slug });
+  // Directly fetching the object instead of an array
+  const post = await client.fetch(POST_QUERY, { slug });
+
   console.log("PostHero:", post);
-  const { title, mainImageUrl, authorName, publishedAt, description } = post;
+
+  if (!post) return null; // Safety check in case slug matches nothing
+
+  const { title, mainImageUrl, authorName, publishedAt, description } = post[0];
+
+  console.log(mainImageUrl, "image url");
+
+  // Fallback safe string rendering
+  const safeDescription = description || "";
+  const excerpt =
+    safeDescription.length > 100
+      ? `${safeDescription.slice(0, 100)}...`
+      : safeDescription;
+
   return (
     <div
       style={{ backgroundImage: `url(${mainImageUrl})` }}
@@ -26,20 +42,19 @@ const Hero = async ({ slug }: { slug: string }) => {
         <div className="hero_content text-white max-w-3xl p-8">
           <h1 className="title text-white">{title}</h1>
 
-          <p>
-            {description.length > 100
-              ? description.slice(0, 100) + "..."
-              : description}
-          </p>
+          <p>{excerpt}</p>
+
           <div className="flex gap-4">
             <p className="text-sm text-gray-400">
               <span className="text-[1rem]">By </span>
               {authorName}
             </p>
             <p className="text-sm">
-              {new Intl.DateTimeFormat("en-GB", {
-                dateStyle: "medium",
-              }).format(new Date(publishedAt))}
+              {publishedAt && !isNaN(Date.parse(publishedAt))
+                ? new Intl.DateTimeFormat("en-GB", {
+                    dateStyle: "medium",
+                  }).format(new Date(publishedAt))
+                : "Date Unavailable"}
             </p>
           </div>
           <div className="cta_container my-8">
