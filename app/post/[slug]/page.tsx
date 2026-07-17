@@ -147,95 +147,19 @@ export default async function PostPage({
         <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 md:py-24">
           <article
             className="
-            prose
-            prose-base
-            md:prose-lg
-            max-w-none
-
-            prose-headings:font-extrabold
-            prose-headings:tracking-tight
-
-            {/* H2 Styling */}
-            prose-h2:text-xl
-            md:prose-h2:text-3xl
-            prose-h2:text-indigo-950
-            prose-h2:border-l-4
-            prose-h2:border-emerald-500
-            prose-h2:pl-4
-            md:prose-h2:pl-5
-            prose-h2:mt-12
-            md:prose-h2:mt-16
-
-            {/* H3 Styling */}
-            prose-h3:text-lg
-            md:prose-h3:text-2xl
-            prose-h3:text-violet-800
-            prose-h3:mt-8
-
-            {/* H4 Styling */}
-            prose-h4:text-base
-            md:prose-h4:text-xl
-            prose-h4:text-sky-800
-
-            {/* Paragraph Text */}
-            prose-p:text-slate-700
-            prose-p:leading-8
-            md:prose-p:leading-9
-
-            {/* Custom Styled Bold Text */}
-            prose-strong:text-slate-900
-            prose-strong:bg-indigo-50/70
-            prose-strong:px-1
-            prose-strong:rounded
-            prose-strong:font-semibold
-
-            {/* Custom Styled Separate Link Color */}
-            prose-a:text-emerald-600
-            prose-a:no-underline
-            prose-a:font-semibold
-            prose-a:border-b-2
-            prose-a:border-emerald-200
-            hover:prose-a:border-emerald-500
-            hover:prose-a:text-emerald-700
-            prose-a:transition-colors
-            prose-a:duration-200
-
-            prose-li:marker:text-indigo-500
-
-            prose-img:rounded-xl
-            md:prose-img:rounded-2xl
-            prose-img:shadow-xl
-
-            {/* Blockquote Styling */}
-            prose-blockquote:border-l-4
-            prose-blockquote:border-indigo-500
-            prose-blockquote:bg-gradient-to-r
-            prose-blockquote:from-indigo-50/50
-            prose-blockquote:to-transparent
-            prose-blockquote:rounded-r-xl
-            prose-blockquote:px-4
-            md:prose-blockquote:px-8
-            prose-blockquote:py-4
-            md:prose-blockquote:py-5
-            prose-blockquote:not-italic
-            prose-blockquote:text-slate-800
-
-            prose-code:bg-slate-100
-            prose-code:px-1.5
-            prose-code:py-0.5
-            prose-code:rounded
-            prose-code:text-indigo-600
-            prose-code:before:content-none
-            prose-code:after:content-none
-            prose-code:break-words
-
-            prose-pre:bg-slate-900
-            prose-pre:text-gray-100
-            prose-pre:rounded-xl
-            md:prose-pre:rounded-2xl
-            prose-pre:shadow-2xl
-            prose-pre:overflow-x-auto
-          "
+              prose
+              prose-base
+              md:prose-lg
+              max-w-none
+              
+              /* Global fallback resets to let custom block rendering take precedence cleanly */
+              prose-headings:font-extrabold
+              prose-headings:tracking-tight
+              
+              prose-img:rounded-xl
+              md:prose-img:rounded-2xl
+              prose-img:shadow-xl
+            "
           >
             <PortableTextRenderer value={post.body} />
           </article>
