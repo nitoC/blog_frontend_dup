@@ -1,64 +1,75 @@
 import clsx from "clsx";
 import Link from "next/link";
+import { ReactNode } from "react";
 
-const Button = ({
-  type,
-  text,
-  styles,
-  size,
-  href,
-  handler,
-}: {
-  type: string;
+type ButtonProps = {
+  variant?: "primary" | "secondary" | "danger" | "link";
   text: string;
   size?: "small" | "medium" | "large";
-  cat?: string;
-  styles: string;
   href?: string;
+  styles?: string;
   handler?: () => void;
-}) => {
-  const ds = {
-    small: "px-2 py-1 text-sm",
-    medium: "px-4 py-2",
-    large: "px-6 py-3 text-lg",
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+};
+
+const Button = ({
+  variant = "primary",
+  text,
+  size = "medium",
+  href,
+  styles,
+  handler,
+  leftIcon,
+  rightIcon,
+}: ButtonProps) => {
+  const sizes = {
+    small: "px-4 py-2 text-sm",
+    medium: "px-6 py-3 text-sm",
+    large: "px-8 py-4 text-base",
   };
 
-  const sizeStyles = ds[size ?? "medium"];
+  const variants = {
+    primary:
+      "bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg",
 
-  const cs = {
-    primary: "bg-blue-500 text-white hover:bg-blue-600",
-    secondary: "bg-gray-500 text-white hover:bg-gray-600",
-    danger: "bg-red-500 text-white hover:bg-red-600",
+    secondary:
+      "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-400",
+
+    danger: "bg-red-600 text-white hover:bg-red-700",
+
+    link: "bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg",
   };
-  const colorStyles = cs[type as keyof typeof cs] || cs.primary;
 
-  if (type === "link") {
+  const className = clsx(
+    "inline-flex items-center justify-center gap-2",
+    "rounded-xl",
+    "font-semibold",
+    "transition-all duration-300",
+    "hover:-translate-y-0.5",
+    "focus:outline-none",
+    "focus:ring-4",
+    "focus:ring-blue-200",
+    sizes[size],
+    variants[variant],
+    styles,
+  );
+
+  if (variant === "link") {
     return (
-      <Link
-        href={href || "#"}
-        className={clsx(
-          "rounded transition-colors duration-300",
-          sizeStyles,
-          colorStyles,
-          styles,
-        )}
-      >
+      <Link href={href ?? "#"} className={className}>
+        {leftIcon}
         {text}
+        {rightIcon}
       </Link>
     );
   }
 
   return (
-    <button
-      className={clsx(
-        "rounded transition-colors duration-300",
-        sizeStyles,
-        colorStyles,
-        styles,
-      )}
-      onClick={handler}
-    >
+    <button className={className} onClick={handler}>
+      {leftIcon}
       {text}
+      {rightIcon}
     </button>
   );
 };
